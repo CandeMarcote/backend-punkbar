@@ -8,10 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="favorite")
-public class Favorite {
+@Table(name="orders")
+public class Order {
 
-	//define fields
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -20,24 +20,24 @@ public class Favorite {
 	@Column(name="product_number")
 	private int productNumber;
 	
-	@Column(name="category")
-	private String category;
-	
-	@Column(name="user_id")
+	@Column(name="cart_id")
 	private int userId;
 	
-	//define constructors
-	public Favorite() {}
+	@Column(name="amount")
+	private int amount;
+	
+	@Column(name="type")
+	private String type;
 
-
-	public Favorite(int productNumber, String category, int userId) {
-		this.productNumber = productNumber;
-		this.category = category;
-		this.userId = userId;
+	public Order() {
 	}
 
-
-	//define getters and setters
+	public Order(int productNumber, int userId, int amount, String type) {
+		this.productNumber = productNumber;
+		this.userId = userId;
+		this.amount = amount;
+		this.type = type;
+	}
 
 	public int getId() {
 		return id;
@@ -55,27 +55,35 @@ public class Favorite {
 		this.productNumber = productNumber;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}	
-	
-	//define a toString method
+	}
+
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	@Override
 	public String toString() {
-		return "Favorite [id=" + id + ", productNumber=" + productNumber + ", category=" + category + ", userId=" + userId + "]";
+		return "Order [id=" + id + ", productNumber=" + productNumber + ", userId=" + userId + ", amount=" + amount
+				+ ", type=" + type + "]";
 	}
-
+	
+	
 }

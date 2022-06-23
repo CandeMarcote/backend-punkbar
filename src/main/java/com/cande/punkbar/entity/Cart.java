@@ -16,23 +16,24 @@ public class Cart {
 	@Column(name="id")
 	private int id;
 	
+	@Column(name="product_number")
+	private int productNumber;
+	
 	@Column(name="user_id")
 	private int userId;
-	
-	@Column(name="product_id")
-	private int productId;
 	
 	@Column(name="amount")
 	private int amount;
 	
 	@Column(name="type")
 	private String type;
-	
-	public Cart() {}
 
-	public Cart(int userId, int productId, int amount, String type) {
+	public Cart() {
+	}
+
+	public Cart(int productNumber, int userId, int amount, String category) {
+		this.productNumber = productNumber;
 		this.userId = userId;
-		this.productId = productId;
 		this.amount = amount;
 		this.type = type;
 	}
@@ -45,20 +46,20 @@ public class Cart {
 		this.id = id;
 	}
 
+	public int getProductNumber() {
+		return productNumber;
+	}
+
+	public void setProductNumber(int productNumber) {
+		this.productNumber = productNumber;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
 
 	public void setUserId(int userId) {
 		this.userId = userId;
-	}
-
-	public int getProductId() {
-		return productId;
-	}
-
-	public void setProductId(int productId) {
-		this.productId = productId;
 	}
 
 	public int getAmount() {
@@ -74,12 +75,12 @@ public class Cart {
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		this.type= type;
 	}
 
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", userId=" + userId + ", productId=" + productId + ", amount=" + amount + ", type="
-				+ type + "]";
+		return "Cart [id=" + id + ", productNumber=" + productNumber + ", userId=" + userId + ", amount=" + amount
+				+ ", type=" + type + "]";
 	}
 }

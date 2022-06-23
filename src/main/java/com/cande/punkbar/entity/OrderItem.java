@@ -5,45 +5,51 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="cart")
-public class Cart {
+@Table(name="orderItems")
+public class OrderItem {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id")
-	private int id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer orderItemId;
+	
+	@Column(name="order_id")
+	private int orderId;
 	
 	@Column(name="product_number")
 	private int productNumber;
-	
-	@Column(name="user_id")
-	private int userId;
 	
 	@Column(name="amount")
 	private int amount;
 	
 	@Column(name="category")
 	private String category;
+	
+	@ManyToOne
+	@JoinColumn(name="order_id", referencedColumnName="id", insertable=false, updatable=false)
+	private Order order;
 
-	public Cart() {
+	public OrderItem() {
 	}
 
-	public Cart(int productNumber, int userId, int amount, String category) {
+	public OrderItem(int orderId, int productNumber, int amount, String category, Order order) {
+		this.orderId = orderId;
 		this.productNumber = productNumber;
-		this.userId = userId;
 		this.amount = amount;
 		this.category = category;
+		this.order = order;
 	}
 
-	public int getId() {
-		return id;
+	public int getOrderId() {
+		return orderId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setOrderId(int orderId) {
+		this.orderId = orderId;
 	}
 
 	public int getProductNumber() {
@@ -52,14 +58,6 @@ public class Cart {
 
 	public void setProductNumber(int productNumber) {
 		this.productNumber = productNumber;
-	}
-
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = userId;
 	}
 
 	public int getAmount() {
@@ -78,9 +76,19 @@ public class Cart {
 		this.category = category;
 	}
 
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", productNumber=" + productNumber + ", userId=" + userId + ", amount=" + amount
-				+ ", category=" + category + "]";
+		return "OrderItem [orderItemId=" + orderItemId + ", orderId=" + orderId + ", productNumber=" + productNumber
+				+ ", amount=" + amount + ", category=" + category + ", order=" + order + "]";
 	}
+	
+	
 }

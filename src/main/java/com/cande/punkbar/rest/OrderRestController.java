@@ -8,26 +8,30 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cande.punkbar.entity.Cart;
 import com.cande.punkbar.entity.Order;
 import com.cande.punkbar.entity.User;
+import com.cande.punkbar.service.CartService;
 import com.cande.punkbar.service.OrderService;
 import com.cande.punkbar.service.UserService;
 
 @RestController
-@RequestMapping("/order")
+@RequestMapping("/orders")
 public class OrderRestController {
 
 	private OrderService orderService;
+	private CartService cartService;
 	private UserService userService;
 	
 	@Autowired
-	public OrderRestController(OrderService theOrderService, UserService theUserService) {
+	public OrderRestController(OrderService theOrderService, UserService theUserService, CartService theCartService) {
 		orderService = theOrderService;
 		userService = theUserService;
+		cartService = theCartService;
 	}
 	
 	@GetMapping(value="/")
@@ -48,12 +52,22 @@ public class OrderRestController {
 		return theOrder;
 	}
 	
-	@PostMapping("/")
+	@PostMapping("/place_order")
 	@CrossOrigin
-	public Order addOrder(@RequestBody Order theOrder) {
-		//theOrder.setId(0);
-		orderService.save(theOrder);
-		return theOrder;
+	public void addOrder(@RequestParam int userId, @RequestParam int cartId) {
+		
+		List<Cart> cartItems = cartService.findAll();
+		
+		for(int i = 0; i < cartItems.size(); i++) {
+			Order theOrder = new Order();
+			theOrder.setAmount(cartItems.get(i).getAmount());
+			theOrder.setCategory(cartItems.get(i).getCategory());
+			theOrder.setProductNumber(cartItems.get(i).getProductNumber());
+			theOrder.setUserId(userId);
+			theOrder.setCartId(cartId);
+			
+			orderService.save(theOrder);
+		}
 	}
 	
 	@DeleteMapping("/users/{userId}/order/{orderId}")

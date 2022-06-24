@@ -36,6 +36,14 @@ public class User {
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="user_favorite")
 	private List<Favorite> favorites;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="user_cart")
+	private List<Cart> cartItems;
+	
+	/*@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@JoinColumn(name="user_order")
+	private List<Order> orderItems;*/
 	/*private CartItem;
 	private OrderItem;*/
 	
@@ -104,5 +112,9 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + "]";
+	}
+
+	public List<Cart> getCartItems() {
+		return cartItems;
 	}	
 }

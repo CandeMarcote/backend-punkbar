@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cande.punkbar.entity.Cart;
@@ -51,7 +52,8 @@ public class CartRestController {
 	@PostMapping("/")
 	@CrossOrigin
 	public Cart addCart(@RequestBody Cart theCart) {
-		//theCart.setId(0);
+		theCart.setId(0);
+		
 		cartService.save(theCart);
 		return theCart;
 	}

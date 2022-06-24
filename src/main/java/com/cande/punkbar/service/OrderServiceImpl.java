@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cande.punkbar.dao.OrderRepository;
 import com.cande.punkbar.entity.Order;
@@ -27,13 +28,15 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public Order findById(int theId) {
 		Optional<Order> result = orderRepository.findById(theId);
+		
 		Order theOrder = null;
 		if(result.isPresent()) {
 			theOrder = result.get();
 		}
 		else {
-			throw new RuntimeException("Order id not found");
+			throw new RuntimeException("The order id was not found");
 		}
+		
 		return theOrder;
 	}
 

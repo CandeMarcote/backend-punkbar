@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="favorite")
+@Table(name="favorites")
 public class Favorite {
 
 	//define fields
@@ -28,7 +28,6 @@ public class Favorite {
 	
 	//define constructors
 	public Favorite() {}
-
 
 	public Favorite(int productNumber, String category, int userId) {
 		this.productNumber = productNumber;

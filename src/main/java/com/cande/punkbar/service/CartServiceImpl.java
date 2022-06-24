@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cande.punkbar.dao.CartRepository;
 import com.cande.punkbar.entity.Cart;
@@ -27,13 +28,15 @@ public class CartServiceImpl implements CartService {
 	@Override
 	public Cart findById(int theId) {
 		Optional<Cart> result = cartRepository.findById(theId);
+		
 		Cart theCart = null;
 		if(result.isPresent()) {
 			theCart = result.get();
 		}
 		else {
-			throw new RuntimeException("cart id not found");
+			throw new RuntimeException("The cart id was not found");
 		}
+		
 		return theCart;
 	}
 

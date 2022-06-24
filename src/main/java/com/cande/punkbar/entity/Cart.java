@@ -11,6 +11,7 @@ import javax.persistence.Table;
 @Table(name="cart")
 public class Cart {
 
+	//define fields
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
@@ -19,23 +20,24 @@ public class Cart {
 	@Column(name="product_number")
 	private int productNumber;
 	
+	@Column(name="category")
+	private String category;
+	
 	@Column(name="user_id")
 	private int userId;
 	
 	@Column(name="amount")
 	private int amount;
+
 	
-	@Column(name="category")
-	private String category;
+	//define constructors
+	public Cart() {}
 
-	public Cart() {
-	}
-
-	public Cart(int productNumber, int userId, int amount, String category) {
+	public Cart(int productNumber, String category, int userId, int amount) {
 		this.productNumber = productNumber;
+		this.category = category;
 		this.userId = userId;
 		this.amount = amount;
-		this.category = category;
 	}
 
 	public int getId() {
@@ -54,6 +56,14 @@ public class Cart {
 		this.productNumber = productNumber;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public int getUserId() {
 		return userId;
 	}
@@ -70,17 +80,9 @@ public class Cart {
 		this.amount = amount;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	@Override
 	public String toString() {
-		return "Cart [id=" + id + ", productNumber=" + productNumber + ", userId=" + userId + ", amount=" + amount
-				+ ", category=" + category + "]";
+		return "Cart [id=" + id + ", productNumber=" + productNumber + ", category=" + category + ", userId=" + userId
+				+ ", amount=" + amount + "]";
 	}
 }

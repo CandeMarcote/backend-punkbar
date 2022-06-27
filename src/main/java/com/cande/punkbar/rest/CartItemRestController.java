@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,14 +45,14 @@ public class CartItemRestController {
 	public CartItem addCartItem(@RequestBody CartItem theCartItem, @RequestParam int userId) {
 		
 		Cart theCart = cartService.findByUserId(userId);
-		System.out.println(theCart);
-		System.out.println(theCart.getId());
+		cartService.save(theCart);
+		//System.out.println(theCart);
+		//System.out.println(theCart.getId());
 		
 		theCartItem.setId(0);
 		theCartItem.setCartId(theCart.getId());
-		System.out.println("added");
-		cartItemService.save(theCartItem);
-		cartService.save(theCart);
+		//System.out.println("added");
+		cartItemService.saveOrUpdate(theCartItem);
 		return theCartItem;
 	}
 	
@@ -67,5 +68,15 @@ public class CartItemRestController {
 	public String deleteAll() {
 		cartItemService.deleteAll();
 		return "the cart is empty";
+	}
+	
+	@PutMapping("/")
+	@CrossOrigin
+	public String updateCartItem(@RequestBody CartItem theCartItem) {
+		CartItem existingCartItem = cartItemService.findByProductNumberAndCategory(theCartItem.getProductNumber(), theCartItem.getCategory());
+		if(existingCartItem == null) {
+			cartItemService.saveOrUpdate(theCartItem);
+		}
+		return "updated item";
 	}
 }

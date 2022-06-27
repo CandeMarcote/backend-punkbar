@@ -21,7 +21,7 @@ public class CartItemServiceImpl implements CartItemService {
 	}
 
 	@Override
-	public void save(CartItem theCartItem) {
+	public void saveOrUpdate(CartItem theCartItem) {
 		theCartItem.setId(0);
 		cartItemRepository.save(theCartItem);
 	}
@@ -41,5 +41,11 @@ public class CartItemServiceImpl implements CartItemService {
 	public List<CartItem> findAll() {
 		List<CartItem> theCartItems = cartItemRepository.findAll();
 		return theCartItems;
+	}
+
+	@Override
+	public Optional<CartItem> findByProductNumberAndCategory(int theProductNumber, String theCategory) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

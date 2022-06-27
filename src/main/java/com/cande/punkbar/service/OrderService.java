@@ -13,5 +13,6 @@ public interface OrderService {
 	
 	public void save(Order theOrder);
 	
+	//al final no tienen que tener delete pero por el momento lo dejamos para el desarrollo
 	public void deleteById(int theId);
 }

@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.cande.punkbar.dao.FavoriteRepository;
 import com.cande.punkbar.entity.Favorite;
@@ -48,6 +47,12 @@ public class FavoriteServiceImpl implements FavoriteService {
 	@Override
 	public void deleteById(int theId) {
 		favoriteRepository.deleteById(theId);
+	}
+
+	@Override
+	public Optional<Favorite> findByProductNumberAndCategoryAndUserId(int theProductNumber, String theCategory, int userId) {
+		Optional<Favorite> theFavorite = favoriteRepository.findByProductNumberAndCategoryAndUserId(theProductNumber, theCategory, userId);
+		return theFavorite;
 	}
 
 }

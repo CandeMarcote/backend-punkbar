@@ -13,4 +13,6 @@ public interface CartService {
 	public void save(Cart theCart);
 	
 	public void deleteById(int theId);
+	
+	public Cart findByUserId(int theUserId);
 }

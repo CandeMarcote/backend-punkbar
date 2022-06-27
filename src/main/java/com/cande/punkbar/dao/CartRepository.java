@@ -6,4 +6,5 @@ import com.cande.punkbar.entity.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Integer> {
 
+	public Cart findByUserId(int theUserId);
 }
